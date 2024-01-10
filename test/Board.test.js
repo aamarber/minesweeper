@@ -146,3 +146,36 @@ it('defuse a cell without surrounding mines and recursively defuses the surround
         expect(x.defused).toBe(true)
     );
 });
+
+it('flag a cell should flag it and update the count of remaining mines', () => {
+
+    //Arrange
+    const columns = 4;
+    const rows = 4;
+
+    const mines = [new Mine(0, 0),new Mine(0, 1)];
+
+    const board = new Board(rows, columns, mines);
+
+    /**
+     * This will be the board, where * is a mine and 0 is nothing
+     *      *   *   0
+     *      0   0   0
+     *      0   0   0
+     */
+
+
+    //Act
+    //Flagging the mine at 0,0 should flag
+    const result = board.flag(0, 0);
+
+    const flaggedCell = result.getCellBy(0,0);
+
+    const remainingMinesCount = result.getRemainigMinesCount();
+
+    //Assert
+    expect(flaggedCell.flagged).toBe(true);
+
+    // As one mine is flagged and there's only one more, the remainingMinesCount should be 1
+    expect(remainingMinesCount).toBe(1);
+});
