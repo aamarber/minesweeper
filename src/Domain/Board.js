@@ -156,6 +156,10 @@ export default class Board{
         this.flaggedCount = cells.filter(x => x.flagged).length;
     }
 
+    getRemainigMinesCount = () => {
+        return this.mines.length - this.flaggedCount;
+    }
+
     /**
      * 
      * @param {number} row 
@@ -197,7 +201,7 @@ export default class Board{
     }
 
     _defuseSurroundingMines = (cell) => {
-        if(cell.surroundingMines === 0){
+        if(cell.getSurroundingMinesCount() === 0){
             let toDefuse = this._getSurroundingCellsUndefused(cell.row, cell.column);
 
             toDefuse.forEach(x => this.defuse(x.row, x.column));
